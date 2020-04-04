@@ -1,0 +1,32 @@
+Sub counterV2()
+
+Dim WS As Worksheet
+    For Each WS In Worksheets
+    WS.Activate
+    'set variables holding ticker name and total stonk volume.
+        Dim Ticker As String
+        Dim TotalStockVolume As Double
+        TotalStockVolume = 0
+        Dim Volume_Total_Row As Integer
+        Volume_Total_Row = 2
+        WS.Range("I1").Value = "Ticker"
+        WS.Range("J1").Value = "Total Stonk Volume"
+        WS.Range("J:J").HorizontalAlignment = xlRight
+        WS.Range("J:J").ColumnWidth = 12
+        ' Loop through each row
+        For i = 2 To 797712
+        ' check if we are still on same ticker
+            If Cells(i + 1, 1).Value <> Cells(i, 1).Value Then
+                Ticker = Cells(i, 1).Value
+                 'total = total + 1 ????
+        TotalStockVolume = TotalStockVolume + Cells(i, 7).Value
+        Range("I" & Volume_Total_Row).Value = Ticker
+        Range("J" & Volume_Total_Row).Value = TotalStockVolume
+        Volume_Total_Row = Volume_Total_Row + 1
+        TotalStockVolume = 0
+Else
+       
+        TotalStockVolume = TotalStockVolume + Cells(i, 7).Value
+  End If
+  Next i
+  Next WS
